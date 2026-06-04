@@ -186,6 +186,41 @@ CUDA_HOME=$CONDA_PREFIX PYTHONPATH=$(pwd) python cosmos_predict1/diffusion/infer
     --video_save_folder=asset/example_results/video_relighting_rotation/ --rotate_light=True --use_fixed_frame_ind=True
 ```
 
+## Long Video Relighting Workflow
+
+This fork adds a managed workflow for long robot-camera relighting runs where a
+video is represented as thousands of pre-cropped frames. The workflow keeps each
+clip isolated, processes it in overlapping 57-frame chunks, stitches outputs in a
+streaming manner, and restores original frame names after relighting.
+
+Main entry points:
+
+```text
+scripts/relighting/run_long_video_relighting.sh
+scripts/relighting/monitor_relighting_pipeline.sh
+scripts/relighting/preprocess_frames_for_relighting.py
+scripts/relighting/stitch_chunked_relighting_frames.py
+scripts/relighting/restore_relighted_frame_names.py
+```
+
+Quick run:
+
+```bash
+nohup bash scripts/relighting/run_long_video_relighting.sh \
+    --input_dir /path/to/wrist_1/cropped \
+    --clip_name wrist_1 \
+    >> wrist_1_pipeline.log 2>&1 &
+
+bash scripts/relighting/monitor_relighting_pipeline.sh wrist_1 10
+```
+
+Generated relighting frames, stitched videos, pipeline logs, rename CSVs,
+checkpoints, and local input videos are intentionally ignored by git. Keep source
+frames outside the repository or under ignored generated-data directories.
+
+For full reproduction details, resume commands, output layout, and the preserved
+paper execution plan, see [docs/relighting/README.md](docs/relighting/README.md).
+
 
 ## License and Contact
 
