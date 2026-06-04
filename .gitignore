@@ -2,3 +2,38 @@ asset/.DS_Store
 asset/examples/.DS_Store
 asset/examples/hdri_examples/.DS_Store
 asset/examples/image_examples/.DS_Store
+asset/examples/video_examples/.DS_Store
+
+# Local editor state
+.agents/
+.claude/
+CLAUDE.md
+
+# Python and shell caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Model checkpoints and generated model artifacts
+checkpoints/*
+!checkpoints/README.md
+*.pt
+*.pth
+*.jit
+*.safetensors
+
+# Relighting pipeline generated data
+asset/example_results/
+asset/examples/pipeline_input_*/
+asset/examples/video_frames_examples/
+asset/examples/wrist1_demo_input/
+asset/examples/wrist1_input/
+asset/examples/wrist1_input_hl/
+
+# Local input videos are large; keep only docs/scripts in git.
+asset/examples/video_examples/*.mp4
+
+# Pipeline runtime state
+*_pipeline.log
+*_rename_mapping.csv
+.*_pipeline_status
